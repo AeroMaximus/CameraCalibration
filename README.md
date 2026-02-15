@@ -1,5 +1,7 @@
 Code based on https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html
 
+Tested in a Python 3.11 conda environment
+
 To calibrate a camera:
  1. Print out the included checkerboard pattern and photograph it on flat surface from various angles. About 10 photos are recommended.
  2. Store them in a directory and run CameraCalibration.py <DIRECTORY>
