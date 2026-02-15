@@ -3,6 +3,7 @@ import numpy as np
 import selectImages
 import sys
 import os
+import logging
 
 def undistortImage(frame, mtx, dist):
     h, w = frame.shape[:2]
@@ -13,6 +14,13 @@ def undistortImage(frame, mtx, dist):
     return undistorted
 
 def main():
+    logging.basicConfig(
+        format="{asctime} - {levelname} - {message}",
+        style="{",
+        datefmt="%Y-%m-%d %H:%M",
+        level=logging.INFO
+    )
+
     # Load calibration data
     with np.load('calibration.npz') as data:
         mtx = data['mtx']
@@ -32,7 +40,7 @@ def main():
         # Save the undistorted image
         output_path = os.path.join("UndistortedPhotos", "Undistorted_" + os.path.basename(imgPath))
         cv2.imwrite(output_path, undistorted)
-        print(f"Saved undistorted image to: {output_path}")
+        logging.info(f"Saved undistorted image to: {output_path}")
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,5 @@
 import os
+import logging
 
 def identifyPaths(path):
     """Load images from a file or directory."""
@@ -10,7 +11,7 @@ def identifyPaths(path):
             imagePaths.append(path)
             
         else:
-            print(f"Error: {path} is not a valid image file.")
+            logging.error(f"{path} is not a valid image file.")
     
     elif os.path.isdir(path):
         # Directory case
@@ -20,7 +21,7 @@ def identifyPaths(path):
                 imagePaths.append(file_path)
 
     else:
-        print(f"Error: {path} is neither a file nor a directory.")
+        logging.error(f"{path} is neither a file nor a directory.")
     
     return imagePaths
 
