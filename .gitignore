@@ -1,11 +1,4 @@
-WIN_20260214_16_53_49_Pro.jpg
-WIN_20260214_16_54_11_Pro.jpg
-WIN_20260214_16_54_19_Pro.jpg
-WIN_20260214_16_54_22_Pro.jpg
-WIN_20260214_16_54_36_Pro.jpg
-WIN_20260214_16_54_52_Pro.jpg
-WIN_20260214_16_55_04_Pro.jpg
-WIN_20260214_16_55_20_Pro.jpg
-WIN_20260214_16_55_28_Pro.jpg
-WIN_20260214_16_55_34_Pro.jpg
 calibration.npz
+__pycache__/
+CalibrationPhotos/
+UndistortedPhotos/

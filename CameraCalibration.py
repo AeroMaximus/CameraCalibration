@@ -2,36 +2,7 @@ from tkinter import Image
 import cv2
 import numpy as np
 import sys
-import os
-
-def load_images(path):
-    """Load images from a file or directory."""
-    imagePaths = []
-
-    if os.path.isfile(path):
-        # Single file case
-        if is_image_file(path):
-            imagePaths.append(path)
-            
-        else:
-            print(f"Error: {path} is not a valid image file.")
-    
-    elif os.path.isdir(path):
-        # Directory case
-        for filename in os.listdir(path):
-            file_path = os.path.join(path, filename)
-            if os.path.isfile(file_path) and is_image_file(file_path):
-                imagePaths.append(file_path)
-
-    else:
-        print(f"Error: {path} is neither a file nor a directory.")
-    
-    return imagePaths
-
-def is_image_file(filename):
-    """Check if a file has a valid image extension."""
-    valid_extensions = (".png", ".jpg", ".jpeg", ".bmp", ".tiff")
-    return filename.lower().endswith(valid_extensions)
+import SelectImages
 
 def main():
 
@@ -48,7 +19,7 @@ def main():
     imageShape = []
     objpoints = []  # 3D points in real world space
     imgpoints = []  # 2D points in image plane
-    imagePaths = load_images(sys.argv[1])  # Load images from the provided path
+    imagePaths = SelectImages.identifyPaths(sys.argv[1])  # Load images from the provided path
 
     for imgPath in imagePaths:
         img = cv2.imread(imgPath)
