@@ -1,8 +1,7 @@
-from tkinter import Image
 import cv2
 import numpy as np
 import sys
-import SelectImages
+import selectImages
 
 def main():
 
@@ -19,7 +18,7 @@ def main():
     imageShape = []
     objpoints = []  # 3D points in real world space
     imgpoints = []  # 2D points in image plane
-    imagePaths = SelectImages.identifyPaths(sys.argv[1])  # Load images from the provided path
+    imagePaths = selectImages.identifyPaths(sys.argv[1])  # Load images from the provided path
 
     for imgPath in imagePaths:
         img = cv2.imread(imgPath)

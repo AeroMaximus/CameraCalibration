@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import UndistortImages
+import undistortImages
 
 def main():
     # Load calibration data
@@ -16,7 +16,7 @@ def main():
         if not ret:
             break
 
-        undistorted = UndistortImages.undistortImage(frame, mtx, dist)
+        undistorted = undistortImages.undistortImage(frame, mtx, dist)
 
         cv2.imshow('Undistorted Frame', undistorted)
         if cv2.waitKey(1) & 0xFF == ord('q'):
