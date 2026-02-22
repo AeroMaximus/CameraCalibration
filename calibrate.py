@@ -1,9 +1,16 @@
 import cv2
 import numpy as np
-import sys
 import selectImages
+import argparse
 
 def main():
+
+    # Parse arguments
+    parser = argparse.ArgumentParser(description='Calibrate camera from photos')
+    parser.add_argument("images", type=str, help="Path to the images directory")
+    parser.add_argument("--preview", action="store_true", help="Preview images during calibration")
+
+    args = parser.parse_args()
 
     # Chessboard dimensions
     chessboard = (7, 10)
@@ -18,7 +25,7 @@ def main():
     imageShape = []
     objpoints = []  # 3D points in real world space
     imgpoints = []  # 2D points in image plane
-    imagePaths = selectImages.identifyPaths(sys.argv[1])  # Load images from the provided path
+    imagePaths = selectImages.identifyPaths(args.images)  # Load images from the provided path
 
     for imgPath in imagePaths:
         img = cv2.imread(imgPath)
@@ -34,12 +41,16 @@ def main():
             imgpoints.append(corners_refined)
             objpoints.append(objp)
 
-            # Draw and display the corners
-    #         cv2.drawChessboardCorners(img, chessboard, corners_refined, ret)
-    #         cv2.imshow('Chessboard Corners', img)
-    #         cv2.waitKey(1000)
-
-    # cv2.destroyAllWindows()
+            # Draw the corners
+            if args.preview:
+                cv2.namedWindow('Chessboard Corners', cv2.WINDOW_NORMAL)
+                cv2.resizeWindow('Chessboard Corners', img.shape[1], img.shape[0])
+                cv2.drawChessboardCorners(img, chessboard, corners_refined, ret)
+                cv2.imshow('Chessboard Corners', img)
+                cv2.waitKey(1500)
+                
+    if args.preview:
+        cv2.destroyAllWindows()
 
     # Camera calibration
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, imageShape[::-1], None, None)

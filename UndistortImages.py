@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import selectImages
-import sys
+import argparse
 import os
 import logging
 
@@ -14,6 +14,10 @@ def undistortImage(frame, mtx, dist):
     return undistorted
 
 def main():
+    parser = argparse.ArgumentParser(description='Undistort images based on calibration file.')
+    parser.add_argument('images', type=str, help='Directory containing images to undistort or a single image file.')
+    args = parser.parse_args()
+
     logging.basicConfig(
         format="{asctime} - {levelname} - {message}",
         style="{",
@@ -27,7 +31,7 @@ def main():
         dist = data['dist']
 
     # Identify paths to images
-    imagePaths = selectImages.identifyPaths(sys.argv[1])
+    imagePaths = selectImages.identifyPaths(args.images)
 
     # Create output directory if it doesn't exist
     if not os.path.exists("UndistortedPhotos"):
