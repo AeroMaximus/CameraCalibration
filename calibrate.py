@@ -7,7 +7,7 @@ def main():
 
     # Parse arguments
     parser = argparse.ArgumentParser(description='Calibrate camera from photos')
-    parser.add_argument("--images", type=str, help="Path to the images directory")
+    parser.add_argument("images", type=str, help="Path to the images directory")
     parser.add_argument("--preview", action="store_true", help="Preview images during calibration")
 
     args = parser.parse_args()

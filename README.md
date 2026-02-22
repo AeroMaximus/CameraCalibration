@@ -5,7 +5,7 @@ Tested in a Python 3.14 conda environment
 ## Calibration Process
 To calibrate a camera, follow these steps:
 1. Print out the included checkerboard pattern and photograph it on a flat surface from various angles. At least 10 photos are recommended.
-2. Store them in a directory and run `CameraCalibration.py --images <DIRECTORY>`.
+2. Store them in a directory and run `CameraCalibration.py <DIRECTORY>`.
 3. A calibration.npz file containing the camera matrix and distortion coefficients will be saved to the project directory.
 
 ## Undistortion Process
