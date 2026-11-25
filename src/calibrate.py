@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import selectImages
+import select_images as select_images
 import argparse
 
 def main():
@@ -25,7 +25,7 @@ def main():
     imageShape = []
     objpoints = []  # 3D points in real world space
     imgpoints = []  # 2D points in image plane
-    imagePaths = selectImages.identifyPaths(args.images)  # Load images from the provided path
+    imagePaths = select_images.identifyPaths(args.images)  # Load images from the provided path
 
     for imgPath in imagePaths:
         img = cv2.imread(imgPath)
@@ -57,6 +57,15 @@ def main():
     print("Camera matrix:\n", mtx)
     print("Distortion coefficients:\n", dist)
     np.savez('calibration.npz', mtx=mtx, dist=dist) # Save the camera matrix and distortion coefficients
+
+    # Calculate reprojection error
+    mean_error = 0
+    for i in range(len(objpoints)):
+        imgpoints2, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+        error = cv2.norm(imgpoints[i], imgpoints2, cv2.NORM_L2) / len(imgpoints2)
+        mean_error += error
+    mean_error /= len(objpoints)
+    print("Reprojection error (total): {:.6f}".format(mean_error))
 
 if __name__ == "__main__":
     main()

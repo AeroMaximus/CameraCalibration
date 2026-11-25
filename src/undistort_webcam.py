@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import undistortImages
+import undistort_images as undistortImages
 
 def main():
     # Load calibration data

@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import selectImages
+import select_images as select_images
 import argparse
 import os
 import logging
@@ -31,7 +31,7 @@ def main():
         dist = data['dist']
 
     # Identify paths to images
-    imagePaths = selectImages.identifyPaths(args.images)
+    imagePaths = select_images.identifyPaths(args.images)
 
     # Create output directory if it doesn't exist
     if not os.path.exists("UndistortedPhotos"):
