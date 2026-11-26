@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import json
 import select_images as select_images
 import argparse
 
@@ -56,7 +57,7 @@ def main():
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, imageShape[::-1], None, None)
     print("Camera matrix:\n", mtx)
     print("Distortion coefficients:\n", dist)
-    np.savez('calibration.npz', mtx=mtx, dist=dist) # Save the camera matrix and distortion coefficients
+    np.savez('calibration_data/calibration.npz', mtx=mtx, dist=dist) # Save the camera matrix and distortion coefficients
 
     # Calculate reprojection error
     mean_error = 0
@@ -66,6 +67,16 @@ def main():
         mean_error += error
     mean_error /= len(objpoints)
     print("Reprojection error (total): {:.6f}".format(mean_error))
+
+    # Export calibration data to JSON
+    calib_data = {
+        "camera_matrix": mtx.tolist(),
+        "distortion_coefficients": dist.tolist(),
+        "reprojection_error": mean_error
+    }
+    with open('calibration_data/calibration.json', 'w') as f:
+        json.dump(calib_data, f, indent=4)
+    print("Calibration data exported to calibration.json")
 
 if __name__ == "__main__":
     main()

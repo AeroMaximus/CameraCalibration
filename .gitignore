@@ -2,6 +2,7 @@ calibration.npz
 __pycache__/
 CalibrationPhotos/
 UndistortedPhotos/
-Resources/
+resources/
 .DS_Store
 .vscode/
+calibration_data/
